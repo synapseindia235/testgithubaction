@@ -19,15 +19,15 @@ jobs:
           docker-php-ext-install zip pdo pdo_mysql gd sodium 
           curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
           composer install --no-dev --optimize-autoloader
-
-      - name: Package
-        run: zip -r deploy.zip . -x "*.git*" ".github/*" "tests/*"
       - name: Install AWS CLI
         run: |
           curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
           unzip awscliv2.zip
-          sudo ./aws/install
+          ./aws/install
           aws --version
+      - name: Package
+        run: zip -r deploy.zip . -x "*.git*" ".github/*" "tests/*"
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
