@@ -22,14 +22,12 @@ jobs:
 
       - name: Package
         run: zip -r deploy.zip . -x "*.git*" ".github/*" "tests/*"
-      - name: Debug AWS_REGION secret
+      - name: Install AWS CLI
         run: |
-            if [ -z "${{ secrets.AWS_REGION }}" ]; then
-              echo "AWS_REGION secret is empty or not accessible!"
-              exit 1
-            else
-              echo "AWS_REGION is set ✅"
-            fi
+          curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+          unzip awscliv2.zip
+          sudo ./aws/install
+          aws --version
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
