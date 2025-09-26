@@ -6,6 +6,7 @@ on:
       - dev
 jobs:
   build-deploy:
+    environment: deploy
     runs-on: ubuntu-latest
     container:
       image: php:7.4-cli
