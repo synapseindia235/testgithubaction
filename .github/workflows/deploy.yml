@@ -21,7 +21,14 @@ jobs:
 
       - name: Package
         run: zip -r deploy.zip . -x "*.git*" ".github/*" "tests/*"
-
+      - name: Debug AWS_REGION secret
+          run: |
+            if [ -z "${{ secrets.AWS_REGION }}" ]; then
+              echo "AWS_REGION secret is empty or not accessible!"
+              exit 1
+            else
+              echo "AWS_REGION is set ✅"
+            fi
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
