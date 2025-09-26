@@ -22,7 +22,7 @@ jobs:
       - name: Package
         run: zip -r deploy.zip . -x "*.git*" ".github/*" "tests/*"
       - name: Debug AWS_REGION secret
-          run: |
+        run: |
             if [ -z "${{ secrets.AWS_REGION }}" ]; then
               echo "AWS_REGION secret is empty or not accessible!"
               exit 1
